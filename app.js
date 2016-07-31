@@ -6,9 +6,24 @@ var sequelize = new Sequelize('test','postgres','dob770407',{
 });
 
 var User = sequelize.define('User',{
-	username: Sequelize.STRING,
-	birthday: Sequelize.DATE
-});
+		username: {
+			field: 'username',
+			type: Sequelize.STRING,
+			primaryKey : true,
+			allowNull : false
+		},
+		birthday: {
+			field: 'birthday',
+			type: Sequelize.DATE
+		}
+	},
+	{
+        tableName: 'User',
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
 
 sequelize.sync().then(function(){
 	var trueMonth = 5;
@@ -19,3 +34,4 @@ sequelize.sync().then(function(){
 		console.log(user.dataValues);
 	});
 });
+
